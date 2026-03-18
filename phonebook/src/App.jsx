@@ -8,7 +8,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
 
   useEffect(() => {
-    personsService.getAll()
+    personsService.getPersons()
       .then((data) => {
         setPersons(data)
       })
@@ -39,7 +39,7 @@ const App = () => {
       }
 
       personsService
-        .create(newPerson)
+        .createPerson(newPerson)
         .then((data) => {
           const newPersons = persons.concat(data)
           setPersons(newPersons)
@@ -58,6 +58,17 @@ const App = () => {
   }
   const handleFilterChange = (event) => {
     setFilterValue(event.target.value)
+  }
+  const handlePersonDelete = (id, name) => {
+    console.log(id, name)
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      personsService.deletePerson(id)
+        .then(data => {
+          const newPersons = persons.filter(person => person.id !== data.id)
+          setPersons(newPersons)
+        }
+        )
+    }
   }
 
   return (
@@ -78,7 +89,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} onPersonDelete={handlePersonDelete} />
 
     </div>
   )

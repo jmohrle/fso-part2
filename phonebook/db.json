@@ -26,11 +26,6 @@
       "id": "5"
     },
     {
-      "id": "9ea0",
-      "name": "Adrian Smith",
-      "number": "12-34-467890"
-    },
-    {
       "id": "60be",
       "name": "Dave Murray",
       "number": "98-74-3213584"
@@ -44,6 +39,11 @@
       "id": "b04d",
       "name": "Steve Harris",
       "number": "32-64-7459651"
+    },
+    {
+      "id": "ead8",
+      "name": "Bob Saget",
+      "number": "25-84-3251478"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
