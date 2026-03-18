@@ -34,6 +34,16 @@
       "id": "60be",
       "name": "Dave Murray",
       "number": "98-74-3213584"
+    },
+    {
+      "id": "5deb",
+      "name": "Bruce Dickinson",
+      "number": "69-55-8745871"
+    },
+    {
+      "id": "b04d",
+      "name": "Steve Harris",
+      "number": "32-64-7459651"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
