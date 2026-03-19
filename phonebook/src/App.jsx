@@ -3,6 +3,7 @@ import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import personsService from './services/personsService'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -17,6 +18,7 @@ const App = () => {
   const [filterValue, setFilterValue] = useState('')
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [notification, setNotification] = useState({ type: null, message: null })
 
   const filteredPersons = filterValue === ''
     ? persons
@@ -31,13 +33,15 @@ const App = () => {
 
     if (person.length != 0) {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        const newPerson = { ...person[0], number: newNumber }
+        const updatedPerson = { ...person[0], number: newNumber }
         personsService
-          .updatePerson(newPerson)
+          .updatePerson(updatedPerson)
           .then((data) => {
             setPersons(persons.map(person => person.id === data.id ? data : person))
             setNewName('')
             setNewNumber('')
+            setNotification({ type: 'success', message: `Updated number for ${updatedPerson.name}` })
+            setTimeout(() => { setNotification({ type: null, message: null }) }, 5000)
           })
       }
     }
@@ -54,7 +58,8 @@ const App = () => {
           setPersons(newPersons)
           setNewName('')
           setNewNumber('')
-
+          setNotification({ type: 'success', message: `Added ${newPerson.name}` })
+          setTimeout(() => { setNotification({ type: null, message: null }) }, 5000)
         })
     }
   }
@@ -84,7 +89,9 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Filter onChange={handleFilterChange} />
+      <Notification notification={notification} />
+
+      filter show with <Filter onChange={handleFilterChange} />
 
       <h3>Add a new</h3>
 
