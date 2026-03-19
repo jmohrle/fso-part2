@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react"
 import countriesService from "../services/countriesService"
 
-
-const CountryDetail = ({ name }) => {
-    const [country, setCountry] = useState(null)
-
-    useEffect(() => {
-        console.log(name);
-
-        countriesService.getCountry(name)
-            .then(data => {
-                setCountry(data)
-            })
-    }, [])
+const CountryDetail = ({ country }) => {
 
     return (
         <>
@@ -24,7 +13,7 @@ const CountryDetail = ({ name }) => {
                     <h2>Languages</h2>
                     <ul>
                         {Object.entries(country.languages).map(([abrv, value]) => (
-                            <li>{value}</li>
+                            <li key={abrv}>{value}</li>
                         ))}
                     </ul>
                     <img src={country.flags.png} alt={country.flag.alt} />
