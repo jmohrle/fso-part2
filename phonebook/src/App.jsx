@@ -27,10 +27,19 @@ const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const nameExists = persons.filter((person) => person.name === newName).length != 0
+    const person = persons.filter((person) => person.name.toLowerCase() === newName.toLowerCase())
 
-    if (nameExists) {
-      alert(`${newName} is already added to phonebook`)
+    if (person.length != 0) {
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const newPerson = { ...person[0], number: newNumber }
+        personsService
+          .updatePerson(newPerson)
+          .then((data) => {
+            setPersons(persons.map(person => person.id === data.id ? data : person))
+            setNewName('')
+            setNewNumber('')
+          })
+      }
     }
     else {
       const newPerson = {
