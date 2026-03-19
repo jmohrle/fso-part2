@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "61-37-9873546",
-      "id": "1"
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": "2"
@@ -44,11 +39,6 @@
       "id": "ead8",
       "name": "Bob Saget",
       "number": "49-82-9632147"
-    },
-    {
-      "id": "8e45",
-      "name": "Janick Gers",
-      "number": "25-85-7898349"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

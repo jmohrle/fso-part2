@@ -43,6 +43,13 @@ const App = () => {
             setNotification({ type: 'success', message: `Updated number for ${updatedPerson.name}` })
             setTimeout(() => { setNotification({ type: null, message: null }) }, 5000)
           })
+          .catch(error => {
+            setNotification({ type: 'error', message: `Information on ${newName} has already been removed from server` })
+            setTimeout(() => {
+              setNotification({ type: null, message: null })
+            }, 5000)
+          }
+          )
       }
     }
     else {
@@ -79,7 +86,10 @@ const App = () => {
       personsService.deletePerson(id)
         .then(data => {
           const newPersons = persons.filter(person => person.id !== data.id)
-          setPersons(newPersons)
+          setNotification({ type: 'success', message: `${name} has been deleted` })
+          setTimeout(() => {
+            setNotification({ type: null, message: null })
+          }, 5000)
         }
         )
     }
