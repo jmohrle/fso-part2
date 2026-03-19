@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react"
-import countriesService from "../services/countriesService"
+import weatherService from "../services/weatherService"
 
 const CountryDetail = ({ country }) => {
+
+    const [forecast, setForecast] = useState(null)
+    useEffect(() => {
+
+        weatherService.getForecast(country)
+            .then(data => {
+                setForecast(data)
+            })
+
+    }, [])
 
     return (
         <>
@@ -17,6 +27,14 @@ const CountryDetail = ({ country }) => {
                         ))}
                     </ul>
                     <img src={country.flags.png} alt={country.flag.alt} />
+                    {forecast &&
+                        <>
+                            <h2>Weather in {country.capital[0]}</h2>
+                            <div>Temperature {forecast.main.temp} Fahrenheit</div>
+                            <div><img src={`https://openweathermap.org/payload/api/media/file/${forecast.weather[0].icon}.png`} /></div>
+                            <div>Wind {forecast.wind.speed} miles/hour</div>
+                        </>
+                    }
                 </>
             }
         </>
